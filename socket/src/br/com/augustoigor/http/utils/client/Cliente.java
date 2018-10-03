@@ -1,4 +1,4 @@
-package socket.client;
+package br.com.augustoigor.http.utils.client;
 
 import java.io.IOException;
 import java.io.PrintStream;
