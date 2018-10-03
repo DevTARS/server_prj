@@ -1,19 +1,28 @@
 package br.com.augustoigor.http.utils.server;
 
+import java.io.BufferedReader;
+
 /**
  * Classe Servidor - responsável por criar a conexão e receber as conexões dos clientes. Exibe a informação
  * enviada pelo cliente.
  */
 
 import java.io.IOException;
-import java.net.*;
-import java.util.Scanner;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.sun.javafx.util.Logging;
-
-import socket.utils.request.Request;
+import br.com.augustoigor.http.utils.request.Request;
+import br.com.augustoigor.http.utils.response.DummyResponse;
+import br.com.augustoigor.http.utils.response.Response;
 
 public class Servidor {
 	
@@ -29,10 +38,11 @@ public class Servidor {
 		this.port = port;
 	}
 	
+	@SuppressWarnings("resource")
 	public void serve() {
 		
 		ServerSocket ss = null;
-		logger.info("Iniciando servidor no endereço: " + this.host + ":" + this.port);
+		logger.info("Iniciando sservidor no endereço: " + this.host + ":" + this.port);
 		
 		try {
 			ss = new ServerSocket(port, 1, InetAddress.getByName(host));
@@ -45,7 +55,7 @@ public class Servidor {
 		while(true) {
 			logger.info("Aguardando conexões...");
 			Socket socket = null;
-			InputSream input = null;
+			InputStream input = null;
 			OutputStream output = null;
 			try {
 				socket = ss.accept();
@@ -55,44 +65,47 @@ public class Servidor {
 				String requestString = convertStreamToString(input);
 				logger.info("Conexão recebida. Conteúdo:\n" + requestString);
 				Request request = new Request();
+				request.parse(requestString);
+				
+				Response response = new DummyResponse(request);
+				String responseString = response.respond();
+				logger.info("Resposta enviada. Conteúdo:\n" + responseString);
+				output.write(responseString.getBytes());
+				
+				socket.close();
+				
+			} catch (Exception e) {
+				logger.log(Level.SEVERE, "Erro ao executar servidor!", e);
+				continue;
 			}
 		}
 		
 	}
 	
+	private String convertStreamToString(InputStream is) {
+
+		if (is != null) {
+			Writer writer = new StringWriter();
+
+			char[] buffer = new char[2048];
+			try {
+				Reader reader = new BufferedReader(new InputStreamReader(is));
+				int i = reader.read(buffer);
+				writer.write(buffer, 0, i);
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "Erro ao converter stream para string", e);
+				return "";
+			}
+			return writer.toString();
+		} else {
+			return "";
+		}
+	}
+	
 	public static void main(String[] args)  throws IOException{		
 		
-		//Cria um socket na porta 12345
-		ServerSocket servidor = new ServerSocket (12345);
-		System.out.println("Porta 12345 aberta!");
-		
-		// Aguarda alguém se conectar. A execução do servidor
-		// fica bloqueada na chamada do método accept da classe
-		// ServerSocket. Quando alguém se conectar ao servidor, o
-		// método desbloqueia e retorna com um objeto da classe
-		// Socket, que é uma porta da comunicação.
-		
-		System.out.print("Aguardando conexão do cliente...");		
-		Socket cliente = servidor.accept();
-	
-		System.out.println("Nova conexao com o cliente " + cliente.getInetAddress().getHostAddress());
-		
-		
-		//Recebe a mensagem enviada pelo cliente
-		Scanner s = new Scanner(cliente.getInputStream());
-		
-		//Exibe mensagem no console
-		while(s.hasNextLine())
-		{
-			System.out.println(s.nextLine());
-		
-		}
-		
-		//Finaliza objetos
-		s.close();
-		cliente.close();
-		servidor.close();
-		System.out.println("Fim do Servidor!");
+		Servidor server = new Servidor("localhost", 8091);
+		server.serve();
 	}
 
 	
