@@ -42,7 +42,7 @@ public class Servidor {
 	public void serve() {
 		
 		ServerSocket ss = null;
-		logger.info("Iniciando sservidor no endereço: " + this.host + ":" + this.port);
+		logger.info("Iniciando servidor no endereço: " + this.host + ":" + this.port);
 		
 		try {
 			ss = new ServerSocket(port, 1, InetAddress.getByName(host));
