@@ -1,0 +1,9 @@
+caminho do diretório
+
+C:/noOne/www
+
+inserir no código a busca por esse caminho e carregar o conteúdo do mesmo.
+
+criar página de erro e inserir códigos de erro
+
+verificar os tipos de retorno do servidor.
