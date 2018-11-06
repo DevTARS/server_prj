@@ -8,7 +8,7 @@ criar página de erro e inserir códigos de erro
 
 verificar os tipos de retorno do servidor.
 
-gerar properties 
+1)gerar properties 
 
 Exemplo:
 
