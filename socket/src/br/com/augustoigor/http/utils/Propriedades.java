@@ -8,5 +8,4 @@ public class Propriedades {
 	
 	public static String diretorio = rb.getString("diretorio");
 
-	
 }
