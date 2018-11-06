@@ -7,3 +7,19 @@ inserir no código a busca por esse caminho e carregar o conteúdo do mesmo.
 criar página de erro e inserir códigos de erro
 
 verificar os tipos de retorno do servidor.
+
+gerar properties 
+
+Exemplo:
+
+server.properties
+#
+pathDirectory=C:/noOne/
+
+
+teste.java
+
+ResourceBundle rb = ResourceBundle.getBundle("server");
+
+String path = rb.getString("pathDirectory");
+
