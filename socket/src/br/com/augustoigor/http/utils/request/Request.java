@@ -52,6 +52,10 @@ public class Request {
 		return uri;
 	}
 
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	
 	/**
 	 * Protocol recovery
 	 * 
