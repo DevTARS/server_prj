@@ -1,6 +1,6 @@
-package br.com.augustoigor.http.utils.response;
+package br.com.augustoigor.http.response;
 
-import br.com.augustoigor.http.utils.request.Request;
+import br.com.augustoigor.http.request.Request;
 
 public class ResponseFactory {
 

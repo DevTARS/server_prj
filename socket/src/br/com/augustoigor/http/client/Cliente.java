@@ -1,4 +1,4 @@
-package br.com.augustoigor.http.utils.client;
+package br.com.augustoigor.http.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

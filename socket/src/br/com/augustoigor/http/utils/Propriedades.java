@@ -7,5 +7,7 @@ public class Propriedades {
 	static ResourceBundle rb = ResourceBundle.getBundle("propriedades");
 	
 	public static String diretorio = rb.getString("diretorio");
+	
+	public static String pageNotFound = rb.getString("404page");
 
 }

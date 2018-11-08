@@ -1,4 +1,4 @@
-package br.com.augustoigor.http.utils.server;
+package br.com.augustoigor.http.server;
 
 import java.io.BufferedReader;
 
@@ -20,9 +20,9 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.augustoigor.http.utils.request.Request;
-import br.com.augustoigor.http.utils.response.DummyResponse;
-import br.com.augustoigor.http.utils.response.Response;
+import br.com.augustoigor.http.request.Request;
+import br.com.augustoigor.http.response.DummyResponse;
+import br.com.augustoigor.http.response.Response;
 
 public class Servidor {
 	

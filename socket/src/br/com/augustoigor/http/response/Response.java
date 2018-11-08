@@ -1,4 +1,4 @@
-package br.com.augustoigor.http.utils.response;
+package br.com.augustoigor.http.response;
 
 public interface Response {
 
